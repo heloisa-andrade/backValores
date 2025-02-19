@@ -1,17 +1,17 @@
-# Usa uma imagem com Maven e JDK 17 já instalados
-FROM maven:3.8.6-eclipse-temurin-17 AS build
+# Usa Maven com Java 21
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 
+# Define o diretório de trabalho
 WORKDIR /app
+
+# Copia os arquivos do projeto
 COPY jogoVivi/pom.xml .
 COPY jogoVivi/src ./src
 
-# Agora copia todo o código-fonte
-COPY . .
-
-# Executa o Maven para gerar o JAR
+# Compila o projeto
 RUN mvn clean package -DskipTests
 
-# Usa apenas o JAR na imagem final
+# Cria a imagem final com apenas o JAR
 FROM eclipse-temurin:21-jdk
 
 WORKDIR /app
