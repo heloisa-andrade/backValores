@@ -1,13 +1,25 @@
-# Usa a imagem oficial do OpenJDK 17 (ou outra versão que seu projeto suporte)
-FROM eclipse-temurin:17-jdk
+# Usa uma imagem do OpenJDK
+FROM eclipse-temurin:17-jdk AS build
 
-# Define o diretório de trabalho dentro do container
+# Define o diretório de trabalho
 WORKDIR /app
 
-# Copia o arquivo JAR gerado para dentro do container
-COPY target/jogoVIVI-0.0.1-SNAPSHOT.jar app.jar
+# Copia o código-fonte do projeto para o container
+COPY . .
 
-# Define a porta que a aplicação vai usar
+# Compila o projeto e gera o JAR
+RUN ./mvnw clean package -DskipTests
+
+# Segunda etapa: cria a imagem final para rodar a aplicação
+FROM eclipse-temurin:17-jdk
+
+# Define o diretório de trabalho
+WORKDIR /app
+
+# Copia o JAR gerado da fase de build
+COPY --from=build /app/target/*.jar app.jar
+
+# Expõe a porta usada pelo Spring Boot
 EXPOSE 8080
 
 # Comando para rodar a aplicação
