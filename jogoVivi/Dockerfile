@@ -1,22 +1,21 @@
-# Usa uma imagem do OpenJDK
-FROM eclipse-temurin:17-jdk AS build
+# Etapa 1: Usar uma imagem que já tenha Maven instalado
+FROM maven:3.8.6-eclipse-temurin-17 AS build
 
-# Define o diretório de trabalho
+# Define o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copia o código-fonte do projeto para o container
+# Copia os arquivos do projeto para o container
 COPY . .
 
 # Compila o projeto e gera o JAR
-RUN ./mvnw clean package -DskipTests
+RUN mvn clean package -DskipTests
 
-# Segunda etapa: cria a imagem final para rodar a aplicação
+# Etapa 2: Criar a imagem final apenas com o JAR
 FROM eclipse-temurin:17-jdk
 
-# Define o diretório de trabalho
 WORKDIR /app
 
-# Copia o JAR gerado da fase de build
+# Copia apenas o JAR gerado na etapa de build
 COPY --from=build /app/target/*.jar app.jar
 
 # Expõe a porta usada pelo Spring Boot
