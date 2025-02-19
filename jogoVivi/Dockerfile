@@ -1,11 +1,9 @@
 # Usa uma imagem com Maven e JDK 17 já instalados
 FROM maven:3.8.6-eclipse-temurin-17 AS build
 
-# Define o diretório correto para o build
 WORKDIR /app
-
-# Copia o `pom.xml` primeiro para melhor cache
-COPY pom.xml .
+COPY jogoVivi/pom.xml .
+COPY jogoVivi/src ./src
 
 # Agora copia todo o código-fonte
 COPY . .
