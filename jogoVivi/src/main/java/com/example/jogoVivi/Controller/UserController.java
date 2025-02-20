@@ -18,7 +18,7 @@ public class UserController {
     UserRep userRep;
 
     @PostMapping("/add")
-    @CrossOrigin("http://127.0.0.1:5501")
+    @CrossOrigin(origins = "https://jogovalores-1.onrender.com") // Permite apenas esse domínio
     public ResponseEntity<Object> adduser(@RequestBody UserModal userModal){
         UserServe userServe = new UserServe();
         return userServe.findSave(userModal,userRep);
