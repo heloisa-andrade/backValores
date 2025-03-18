@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,25 +24,15 @@ public class UserController {
         UserServe userServe = new UserServe();
         return userServe.findSave(userModal,userRep);
     }
-//    @PostMapping("/points")
-//    public ResponseEntity<Object> points(@RequestBody UserModal userModal){
-//        UserServe userServe = new UserServe();
-//        return userServe.findSave(userModal,userRep);
-//    }
+    public List<UserModal> getAllCpf() {
+        return userRep.findAll();
+    }
+
     @PostMapping("/points/{id}")
     public ResponseEntity<Object> points(@RequestBody UserModal userModal){
         UserServe userServe = new UserServe();
         return userServe.findSave(userModal,userRep);
     }
-//    @PutMapping("/products/{id}")
-//    public ResponseEntity<Object> upadateProduct(@PathVariable(value = "id") UUID id, @RequestBody @Valid ProductrecordDto productrecordDto ){
-//        Optional<ProductModel> prduct0 = productRepository.findById(id);
-//        if (prduct0.isEmpty()){
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
-//        }
-//        var productModel = prduct0.get();
-//        BeanUtils.copyProperties(productrecordDto,productModel);
-//        return ResponseEntity.status(HttpStatus.OK).body(productRepository.save(productModel));
-//    }
+
 
 }

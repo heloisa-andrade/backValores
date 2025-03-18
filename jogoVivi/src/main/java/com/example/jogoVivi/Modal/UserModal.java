@@ -14,16 +14,20 @@ public class UserModal {
     @Id
     private String email;
     private String name;
-    private String time;
+    private String tipo;
     private int points;
 
     public UserModal() {
     }
 
-    public UserModal(String email, String name, String time, int points) {
+    public UserModal(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public UserModal(String email, String name, String tipo, int points) {
         this.email = email;
         this.name = name;
-        this.time = time;
+        this.tipo = tipo;
         this.points = points;
     }
 
@@ -39,12 +43,12 @@ public class UserModal {
         return email;
     }
 
-    public String getTime() {
-        return time;
+    public String gettipo() {
+        return tipo;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void settipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public void setEmail(String email) {
