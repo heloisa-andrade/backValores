@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*") // Permite apenas esse domínio
 public class ValoresController {
     @Autowired
     ValoresRepositry valores;
