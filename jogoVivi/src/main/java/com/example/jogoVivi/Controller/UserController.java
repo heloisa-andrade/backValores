@@ -12,14 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
+@CrossOrigin(origins = "*")
 @RestController
 public class UserController {
     @Autowired
     UserRep userRep;
 
     @PostMapping("/add")
-    @CrossOrigin(origins = "https://jogovalores-1.onrender.com") // Permite apenas esse domínio
     public ResponseEntity<Object> adduser(@RequestBody UserModal userModal){
         UserServe userServe = new UserServe();
         return userServe.findSave(userModal,userRep);
